@@ -1,0 +1,11 @@
+<h1>{{ caption }}</h1>
+<section>
+    {% for item in news %}
+        <article class="news">
+            <p class="news_date">{{ item.date }}</p>
+            <h2 class="news_caption">{{ item.title }}</h2>
+            <div class="news_text">{{ item.content }}</div>
+        </article>
+    {% endfor %}
+</section>
+{{ paginator }}

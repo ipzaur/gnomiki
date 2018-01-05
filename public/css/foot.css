@@ -1,0 +1,23 @@
+.foot {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    background-color: rgba(255,255,255, 0.1);
+    color: #B2B0B0;
+}
+.foot .wrapper {
+    height: 60px;
+    line-height: 60px;
+    padding-left: 8px;
+}
+.foot_link {
+    float: right;
+    font-size: 0;
+    height: 40px;
+    margin: 9px 8px 0 12px;
+    opacity: 0.4;
+}
+.foot_link:hover {
+    opacity: 1;
+}

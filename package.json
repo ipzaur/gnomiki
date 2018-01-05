@@ -1,0 +1,31 @@
+{
+    "name": "gnomiki",
+    "version": "0.1.0",
+    "description": "Gnomereganians website",
+    "author": "iP",
+    "private": true,
+    "scripts": {
+        "start": "node ./bin/www",
+        "dev": "nodemon ./bin/www"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ipzaur/gnomiki.git"
+    },
+    "dependencies": {
+        "axios": "^0.17.1",
+        "body-parser": "~1.18.2",
+        "cookie-parser": "~1.4.3",
+        "debug": "~2.6.9",
+        "express": "~4.15.5",
+        "morgan": "~1.9.0",
+        "mysql": "^2.15.0",
+        "passport": "^0.4.0",
+        "passport-bnet": "^1.2.1",
+        "serve-favicon": "~2.4.5",
+        "twig": "~0.10.3"
+    },
+    "devDependencies": {
+        "nodemon": "^1.14.3"
+    }
+}

@@ -1,0 +1,5 @@
+<div class="paginator">
+    {% for page in 1..pages %}
+        <a href="{{ link }}{{ page > 1 ? page }}" class="paginator_page{{ page == cur ? ' _cur' }}">{{ page }}</a>
+    {% endfor %}
+</div>

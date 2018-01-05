@@ -1,0 +1,14 @@
+.menu {
+    line-height: 76px;
+    font-size: 0;
+    height: 75px;
+}
+.menu_item {
+    color: #07320A;
+    font-size: 24px;
+    margin: 0 24px;
+    font-weight: 400;
+}
+.menu_item._cur {
+    color: white;
+}

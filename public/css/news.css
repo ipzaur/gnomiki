@@ -1,0 +1,27 @@
+.news {
+    margin: 36px 0;
+    position: relative;
+}
+.news:not(:last-child) {
+    padding-bottom: 36px;
+}
+.news:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    left: 166px;
+    right: 166px;
+    background: linear-gradient(to right, rgba(41,75,23, 0), rgba(41,75,23, 1), rgba(41,75,23, 0));
+}
+.news_date {
+    float: right;
+    font-size: 13px;
+    margin-top: 7px;
+}
+.news_caption {
+    margin-left: 8px;
+}
+.news_text {
+    margin-top: 24px;
+}

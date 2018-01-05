@@ -1,0 +1,19 @@
+<header class="head">
+    <div class="wrapper">
+        <img class="head_logo" src="/pics/logo.png" alt="Гномреганцы. Гильдия гномов на сервере Ясеневый Лес (EU)">
+        <nav class="menu">
+            {% for menuItem in menu %}
+                <a href="{{ menuItem.url }}" class="menu_item{{ menuItem.isCurrent ? ' _cur' }}">{{ menuItem.title }}</a>
+            {% endfor %}
+        </nav>
+        {% if user %}
+            {% if user.Character %}
+                <a href="/auth/" class="head_profile"><img class="avatar" src="https://render-api-eu.worldofwarcraft.com/static-render/eu/{{ user.Character.thumbnail }}" alt="Настройки"></a>
+            {% else %}
+                <a href="/auth/" class="head_profile"><img class="avatar" src="/pics/login.png" alt="Войти"></a>
+            {% endif %}
+        {% else %}
+            <a href="/auth/" class="head_profile"><img class="avatar" src="/pics/login.png" alt="Войти"></a>
+        {% endif %}
+    </div>
+</header>

@@ -1,0 +1,35 @@
+.head {
+    margin-top: 24px;
+    border-top: 1px solid #3E3C3C;
+    border-bottom: 1px solid #9F9F9F;
+    background-color: rgba(242,218,198, 0.3);
+}
+.head .wrapper {
+    height: 75px;
+    padding: 0 103px;
+}
+.head_logo {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+}
+.head_profile {
+    position: absolute;
+    font-size: 0;
+    right: 12px;
+    top: 50%;
+    width: 52px;
+    height: 52px;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+}
+.head_profile .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 26px;
+    border: 1px solid rgba(0,0,0, 0.4);
+}

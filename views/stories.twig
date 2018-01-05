@@ -1,0 +1,11 @@
+<h1>{{ caption }}</h1>
+<section class="stories">
+    <div class="stories_text">{{ text }}</div>
+
+    <ul class="stories_list">
+        {% for story in stories %}
+            <li class="stories_story"><a href="/stories/{{ story.url }}">{{ story.title }}</a>.{% if story.short %} {{ story.short }}{% endif %}</li>
+        {% endfor %}
+    </ul>
+</section>
+

@@ -1,0 +1,78 @@
+/* reset */
+p, div, body, h1, h2, h3, li, ol, ul {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* common */
+html {height: 100%;}
+body {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 90px;
+    padding-top: 1px;
+    background: url(/pics/bg.jpg);
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 300;
+    color: #B8B8B8;
+}
+img {
+    border: 0 none;
+}
+a {
+    color: #21C52D;
+    text-decoration: none;
+}
+h1 {
+    color: #706161;
+    font-size: 30px;
+    text-align: center;
+    font-weight: 400;
+    margin-top: 18px;
+    margin-bottom: 60px;
+    position: relative;
+    padding-bottom: 15px;
+}
+h1::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to right, rgba(41,75,23, 0), rgba(41,75,23, 1), rgba(41,75,23, 0));
+}
+h2 {
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+}
+ul li {
+    margin: 4px 0;
+    list-style: none;
+    padding-left: 4px;
+}
+ol li {
+    margin-left: 20px;
+}
+ul li::before {
+    content: "\2012";
+    margin-right: 6px;
+}
+p {
+    margin: 10px 0;
+    line-height: 25px;
+}
+
+.wrapper {
+    position: relative;
+    width: 924px;
+    margin: 0 auto;
+}
+.picture {
+    display: block;
+    max-width: 100%;
+    margin: 20px 0;
+}
