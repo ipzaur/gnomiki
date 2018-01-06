@@ -1,10 +1,13 @@
 <h1>{{ caption }}</h1>
 <section>
     {% for item in news %}
-        <article class="news">
+        <article class="news" news-elem="main">
             <p class="news_date">{{ item.date }}</p>
             <h2 class="news_caption">{{ item.title }}</h2>
             <div class="news_text">{{ item.content }}</div>
+            {% if canEdit %}
+                <a href="javascript:void()" news-action="edit">Редактировать новость</a>
+            {% endif %}
         </article>
     {% endfor %}
 </section>

@@ -7,11 +7,20 @@
             {% endfor %}
         </nav>
         {% if user %}
-            {% if user.Character %}
-                <a href="/auth/" class="head_profile"><img class="avatar" src="https://render-api-eu.worldofwarcraft.com/static-render/eu/{{ user.Character.thumbnail }}" alt="Настройки"></a>
-            {% else %}
-                <a href="/auth/" class="head_profile"><img class="avatar" src="/pics/login.png" alt="Войти"></a>
-            {% endif %}
+            <a href="javascript:void(0);" class="head_profile" menu-action="profile">
+                {% if user.Character %}
+                    <img class="avatar" src="https://render-api-eu.worldofwarcraft.com/static-render/eu/{{ user.Character.thumbnail }}" alt="Настройки">
+                {% else %}
+                    <img class="avatar" src="/pics/login.png" alt="Настройки">
+                {% endif %}
+            </a>
+            <div class="menuProfile" menu-elem="profile">
+                <p class="menuProfile_name">{{ user.Character ? user.Character.name : 'У вас нет гномреганца' }}</p>
+                <div class="menuProfile_actions">
+                    <a href="/profile/" class="menuProfile_action">Персонажи</a>
+                    <a href="/logout/" class="menuProfile_action-exit">Выход</a>
+                </div>
+            </div>
         {% else %}
             <a href="/auth/" class="head_profile"><img class="avatar" src="/pics/login.png" alt="Войти"></a>
         {% endif %}

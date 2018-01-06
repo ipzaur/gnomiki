@@ -4,8 +4,16 @@ var mysql = require('mysql');
 var config = require('../../config')
 
 var Character = require('./character')
+var Role = require('./role')
 
-var cache = [];
+var cache = []
+var fields = [
+    'id',
+    'role',
+    'bid',
+    'btag',
+    'character',
+]
 
 function grab(params)
 {
@@ -76,7 +84,10 @@ function get(params, callback)
         if (user !== null && user.character !== null) {
             Character.get({id:user.character}, (characters) => {
                 user.Character = characters[0]
-                callback(user)
+                Role.get({id:user.role}, (role) => {
+                    user.Role = role
+                    callback(user)
+                })
             })
         } else {
             callback(user)

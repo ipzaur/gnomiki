@@ -10,11 +10,12 @@ var tpl = {
     paginator : fs.readFileSync('./views/paginator.twig', 'utf8'),
 }
 
-function render(newsList, page)
+function render(newsList, page, canEdit)
 {
     return twig({data: tpl.main}).render({
         caption   : 'Гномреганские новости',
         news      : newsList,
+        canEdit   : canEdit,
         paginator : twig({data: tpl.paginator}).render({
             link  : '/',
             pages : news.maxPage(),
@@ -31,7 +32,7 @@ router.get('/(:page|)', (req, res, next) => {
         res.render('layout', {
             title   : 'Гномреганцы. Расовая гильдия гномов на сервере Ясеневый Лес (EU)',
             caption : 'Гномреганские новости',
-            content : render(list, page),
+            content : render(list, page, (res.user && res.user.Role.news) ),
             menu    : menu('news'),
         })
     })

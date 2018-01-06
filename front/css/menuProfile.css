@@ -1,0 +1,14 @@
+.menuProfile {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+.menuProfile_name {
+}
+.menuProfile_actions {
+}
+.menuProfile_action {
+}
+.menuProfile_action-exit {
+}

@@ -3,7 +3,12 @@
 var mysql = require('mysql');
 var config = require('../../config')
 
-var cache = [];
+var cache = []
+var fields = [
+    'id',
+    'user',
+    'created',
+]
 
 function grab(params)
 {

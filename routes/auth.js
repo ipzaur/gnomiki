@@ -61,7 +61,6 @@ function createNewuser(req, res)
     })
 }
 
-
 router.get('/callback', 
     passport.authenticate('bnet', { failureRedirect: '/' }),
     function(req, res) {
@@ -80,7 +79,5 @@ router.get('/callback',
 )
 
 router.get('/', passport.authenticate('bnet'))
-
-
 
 module.exports = router;
