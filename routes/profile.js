@@ -3,6 +3,7 @@ var twig      = require('twig').twig
 var fs        = require('fs')
 var menu      = require('./menu')
 var Character = require('../models/character')
+var User      = require('../models/user')
 
 var router = express.Router()
 var tpl = {
@@ -18,7 +19,33 @@ function render(characters, current)
     });
 };
 
+router.post('/character/:id', (req, res, next) => {
+    if (!res.user) {
+        res.sendStatus(403)
+    }
+    if (!req.params.id) {
+        res.sendStatus(403)
+    }
+    Character.get({
+        user : res.user.id,
+    }, (characters) => {
+        for (let i=0; characters[i]; i++) {
+            if (characters[i].id == req.params.id) {
+                User.save(res.user, {character:characters[i].id}, (user) => {
+                    res.user = user
+                    res.sendStatus(200)
+                })
+                return true
+            }
+        }
+        res.sendStatus(403)
+    })
+});
+
 router.get('/', (req, res, next) => {
+    if (!res.user) {
+        res.sendStatus(403)
+    }
     Character.get({
         user : res.user.id,
     }, (characters) => {

@@ -85,11 +85,11 @@
 [class|="character_action"]:hover {
     opacity: 1;
 }
-.character_action-switch {
+.character_action-select {
     background-position: center 3px;
-    background-image: url(/pics/character-switch.png);
+    background-image: url(/pics/character-select.png);
 }
-.character._cur .character_action-switch {
+.character._cur .character_action-select {
     opacity: 1;
 }
 .character_action-lore {

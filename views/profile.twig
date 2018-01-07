@@ -2,9 +2,9 @@
 <section id="profile" class="profile">
     {% if characters|length %}
         <p class="profile_actions">Можно <a href="javascript:void(0);" profile-action="update">обновить персонажей</a>, чтобы подгрузить твоих новых гномов или обновить аватарки/информацию у уже подгруженных.</p>
-        <div class="characters">
+        <div id="characters" class="characters">
                 {% for character in characters %}
-                    <div class="character{{ current == character.id ? ' _cur' }}">
+                    <div class="character{{ current == character.id ? ' _cur' }}" character-id="{{ character.id }}" character-elem="main">
                         <img class="avatar" src="https://render-api-eu.worldofwarcraft.com/static-render/eu/{{ character.thumbnail }}" alt="Аватара для персонажа {{ character.name }}">
                         <p class="character_name">{{ character.name }}</p>
                         <p class="character_info">
@@ -12,8 +12,8 @@
                             <span class="character_level">[{{ character.level }}]</span>
                         </p>
                         <div class="character_actions">
-                            <a href="javascript:void(0);" class="character_action-switch" title="Сделать основным"></a>
-                            <a href="javascript:void(0);" class="character_action-lore" title="История персонажа"></a>
+                            <a href="javascript:void(0);" class="character_action-select" title="Сделать основным" character-action="select"></a>
+                            <a href="javascript:void(0);" class="character_action-lore" title="История персонажа" character-action="lore"></a>
                         </div>
                     </div>
                 {% endfor %}

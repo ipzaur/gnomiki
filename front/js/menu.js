@@ -12,12 +12,12 @@ var events = {
 }
 
 function toggle() {
-    $toggler.toggleClass('h')
+    $profile.toggleClass('h')
 }
 
 function init()
 {
-    $toggler = $('[menu-elem="profile"]')
+    $profile = $('[menu-elem="profile"]')
     $(window).on(events);
 }
 

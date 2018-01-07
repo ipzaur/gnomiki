@@ -37,6 +37,7 @@ function save(user, params, callback)
     }
     let save = []
     for (let param in params) if (params.hasOwnProperty(param)) {
+        if (fields.indexOf(param) < 0) continue
         if (params[param] === null) {
             save.push('`' + param + '`=NULL')
         } else {
@@ -62,6 +63,7 @@ function save(user, params, callback)
     } else {
         let where = []
         for (let param in user) if (user.hasOwnProperty(param)) {
+            if (fields.indexOf(param) < 0) continue
             if (user[param] === null) {
                 where.push('`' + param + '` IS NULL')
             } else {
