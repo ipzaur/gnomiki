@@ -7,7 +7,7 @@ function isAuthenticated(req, res, next) {
     let sessionId = req.cookies.sessionId
     if (!sessionId) {
         sessionId = (new Date).getTime() + Math.floor(Math.random()*100)
-        res.cookie('sessionId', sessionId, {maxAge: 3600*24*30*5}) // 5 monthes
+        res.cookie('sessionId', sessionId, {expires: new Date(Date.now() + 3600*24*30*5*1000)}) // 5 monthes
         Session.save(null, {id:sessionId}, (session) => {
             res.session = session
             res.user = null

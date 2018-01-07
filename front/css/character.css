@@ -11,7 +11,7 @@
     text-align: center;
     border: 1px solid #4b3e35;
     background-color: #2a252180;
-    padding: 30px 0 30px;
+    padding: 25px 0 30px;
     margin: 0 10px 20px;
     height: 230px;
     font-size: 0;
@@ -25,14 +25,14 @@
     color: #95918A;
     font-size: 13px;
     position: absolute;
-    top: 7px;
+    top: 4px;
     right: 0;
     left: 0;
 }
 .character_name {
     font-size: 20px;
     font-weight: 500;
-    margin: 10px 0 0;
+    margin: 15px 0 0;
 }
 .character_info {
     font-size: 14px;
