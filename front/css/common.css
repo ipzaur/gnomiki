@@ -1,5 +1,5 @@
 /* reset */
-p, div, body, h1, h2, h3, li, ol, ul {
+p, div, body, h1, h2, h3, li, ol, ul, textarea {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -65,6 +65,17 @@ p {
     margin: 10px 0;
     line-height: 25px;
 }
+textarea {
+    width: 100%;
+    border: 0 none;
+    resize: vertical;
+    background-color: #151413;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: 300;
+    color: #B8B8B8;
+    line-height: 25px;
+}
 
 .h {
     display: none;
@@ -78,4 +89,16 @@ p {
     display: block;
     max-width: 100%;
     margin: 20px 0;
+}
+.button {
+    color: #fff;
+    padding: 2px 14px 3px;
+    background-color: #625F5D;
+    font-weight: 400;
+    font-size: 15px;
+    opacity: 0.4;
+    border: 1px solid;
+}
+.button:hover {
+    opacity: 1;
 }

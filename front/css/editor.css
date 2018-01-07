@@ -1,0 +1,16 @@
+.editor {
+    display: flex;
+    flex-direction: column;
+}
+.editor_actions {
+    height: 34px;
+    line-height: 32px;
+    padding: 0 16px;
+    font-size: 15px;
+    background-color: #302c2b;
+}
+.editor_content {
+    padding: 8px 16px;
+    -webkit-flex-grow: 1;
+            flex-grow: 1;
+}

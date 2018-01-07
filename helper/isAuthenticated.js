@@ -1,7 +1,7 @@
 var express = require('express')
 
-var Session = require('../../models/session')
-var User    = require('../../models/user')
+var Session = require('../models/session')
+var User    = require('../models/user')
 
 function isAuthenticated(req, res, next) {
     let sessionId = req.cookies.sessionId

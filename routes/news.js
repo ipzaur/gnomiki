@@ -1,7 +1,7 @@
 var express = require('express')
 var twig    = require('twig').twig
 var fs      = require('fs')
-var menu    = require('./menu')
+var menu    = require('../helper/menu')
 var news    = require('../models/news')
 
 var router = express.Router()

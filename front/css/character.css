@@ -11,16 +11,27 @@
     text-align: center;
     border: 1px solid #4b3e35;
     background-color: #2a252180;
-    padding: 25px 0 30px;
     margin: 0 10px 20px;
-    height: 230px;
     font-size: 0;
 }
 .character._cur {
     background-color: #5f4d3f80;
     border: 1px solid #756052;
 }
-.character._cur::before {
+.character._lore {
+    display: flex;
+    width: auto;
+    text-align: left;
+    max-height: 100vh;
+}
+.character_card {
+    padding: 25px 0 30px;
+    position: relative;
+    text-align: center;
+    height: 228px;
+    width: 158px;
+}
+.character._cur .character_card::before {
     content: "Основной";
     color: #95918A;
     font-size: 13px;
@@ -89,10 +100,42 @@
     background-position: center 3px;
     background-image: url(/pics/character-select.png);
 }
-.character._cur .character_action-select {
+.character._cur .character_action-select,
+.character._lore .character_action-lore {
     opacity: 1;
 }
 .character_action-lore {
     background-position: center 4px;
     background-image: url(/pics/character-lore.png);
+}
+.character_lore {
+    position: relative;
+    background: #151413;
+    flex-grow: 1;
+    width: 500px;
+    margin: 10px;
+    display: flex;
+    font-size: 16px;
+    padding: 0 16px;
+    overflow-y: auto;
+}
+.character_lore::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    cursor: pointer;
+}
+.character_lore._empty {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.character_lore .editor {
+    margin: 0 -16px;
+    flex-grow: 1;
+    z-index: 2;
 }

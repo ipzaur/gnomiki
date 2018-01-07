@@ -12,7 +12,13 @@ var fields = [
     'level',
     'thumbnail',
     'rank',
-    'user'
+    'user',
+    'lore',
+    'lore_src',
+]
+var skipGetFields = [
+    'lore',
+    'lore_src',
 ]
 
 var classAlias = {
@@ -83,7 +89,7 @@ function save(character, params, callback)
     } else {
         let where = []
         for (let param in character) if (character.hasOwnProperty(param)) {
-            if (fields.indexOf(param) < 0) continue
+            if (fields.indexOf(param) < 0 || skipGetFields.indexOf(param) >= 0) continue
             if (character[param] === null) {
                 where.push('`' + param + '` IS NULL')
             } else {
