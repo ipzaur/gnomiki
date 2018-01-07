@@ -1,5 +1,4 @@
 var express = require('express')
-var twig    = require('twig').twig
 var axios   = require('axios')
 var passport = require('passport');
 var BnetStrategy = require('passport-bnet').Strategy;
@@ -22,6 +21,15 @@ passport.use(new BnetStrategy({
     return done(null, profile);
 }));
 
+function afterAuth(res, user)
+{
+    res.user = user
+    Session.save(res.session, {user:res.user.id}, (session) => {
+        res.session = session
+        res.redirect('/stories/')
+    })
+}
+
 function createNewuser(req, res)
 {
     User.save(null, {
@@ -29,35 +37,33 @@ function createNewuser(req, res)
         btag : req.user.battletag,
         role : 1,
     }, (user) => {
-        axios.get('https://eu.api.battle.net/wow/user/characters?access_token=' + req.user.token)
-        .then(response => {
-            let characters = Character.filter(response.data.characters, {
-                realm : 'Ashenvale',
-                guild : 'Гномреганцы',
-            })
-            for (let i=0; characters[i]; i++) {
-                characters[i].user = user.id
+        updateCharacters(req, res, user)
+    })
+}
+
+function updateCharacters(req, res, user)
+{
+    axios.get('https://eu.api.battle.net/wow/user/characters?access_token=' + req.user.token)
+    .then(response => {
+        let characters = Character.filter(response.data.characters, {
+            realm : 'Ashenvale',
+            guild : 'Гномреганцы',
+        })
+        for (let i=0; characters[i]; i++) {
+            characters[i].user = user.id
+        }
+        Character.update(characters, (character) => {
+            if (!user.character && character !== null) {
+                User.save(user, {character:character.id}, (user) => {
+                    afterAuth(res, user)
+                })
+            } else {
+                afterAuth(res, user)
             }
-            Character.update(characters, (character) => {
-                let after = (user) => {
-                    res.user = user
-                    Session.save(res.session, {user:res.user.id}, (session) => {
-                        res.session = session
-                        res.redirect('/')
-                    })
-                }
-                if (character !== null) {
-                    User.save(user, {character:character.id}, (user) => {
-                        after(user)
-                    })
-                } else {
-                    after(user)
-                }
-            })
         })
-        .catch(error => {
-            console.log(error);
-        })
+    })
+    .catch(error => {
+        console.log(error);
     })
 }
 
@@ -68,11 +74,7 @@ router.get('/callback',
             if (user === null) {
                 createNewuser(req, res)
             } else {
-                res.user = user
-                Session.save(res.session, {user:res.user.id}, (session) => {
-                    res.session = session
-                    res.redirect('/')
-                })
+                updateCharacters(req, res, user)
             }            
         })
     }

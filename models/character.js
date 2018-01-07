@@ -121,7 +121,9 @@ function get(params, callback)
         connection.connect();
         connection.query('SELECT * FROM `character`', function(err, rows, fields) {
             if (err) throw err;
-            cache = JSON.parse(JSON.stringify(rows))
+            if (!cache.length) {
+                cache = JSON.parse(JSON.stringify(rows))
+            }
             callback(grab(params));
         });
         connection.end();
@@ -145,8 +147,12 @@ function update(characters, callback)
     }
 
     for (let i=0; characters[i]; i++) {
-        get(characters[i], (character) => {
-            if (character === null) {
+        let params = {
+            name : characters[i].name
+        }
+        get(params, (character) => {
+            character = character[0]
+            if (!character) {
                 save(null, characters[i], (character) => {
                     saved(character)
                 })

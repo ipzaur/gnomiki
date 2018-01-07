@@ -1,11 +1,11 @@
 <h1>{{ caption }}</h1>
 <section id="profile" class="profile">
     {% if characters|length %}
-        <p class="profile_actions">Можно <a href="javascript:void(0);" profile-action="update">обновить персонажей</a>, чтобы подгрузить твоих новых гномов или обновить аватарки/информацию у уже подгруженных.</p>
+        <p class="profile_actions">Можно <a href="/auth/">обновить персонажей</a>, чтобы подгрузить твоих новых гномов или обновить информацию у подгруженных.</p>
         <div id="characters" class="characters">
                 {% for character in characters %}
                     <div class="character{{ current == character.id ? ' _cur' }}" character-id="{{ character.id }}" character-elem="main">
-                        <img class="avatar" src="https://render-api-eu.worldofwarcraft.com/static-render/eu/{{ character.thumbnail }}" alt="Аватара для персонажа {{ character.name }}">
+                        <img class="avatar" src="https://render-eu.worldofwarcraft.com/character/{{ character.thumbnail }}" alt="Аватара для персонажа {{ character.name }}">
                         <p class="character_name">{{ character.name }}</p>
                         <p class="character_info">
                             <span class="character_class-{{ character.class }}">{{ character.classname }}</span>
@@ -19,7 +19,6 @@
                 {% endfor %}
         </div>
     {% else %}
-        <p class="profile_actions">К сожалению, у тебя нет ни одного персонажа в гильдии "Гномреганцы" :( <br>Создай классного гнома или гномку, вступи в эту славную гильдию и нажми <a href="javascript:void(0);" profile-action="update">обновить персонажей</a>, чтобы все твои гномреганцы отобразились в этом списке.</p>
+        <p class="profile_actions">К сожалению, у тебя нет ни одного персонажа в гильдии "Гномреганцы" :( <br>Создай классного гнома или гномку, вступи в эту славную гильдию и нажми <a href="/auth/">обновить персонажей</a>, чтобы все твои гномреганцы отобразились в этом списке.</p>
     {% endif %}
 </section>
-

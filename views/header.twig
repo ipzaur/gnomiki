@@ -9,7 +9,7 @@
         {% if user %}
             <a href="javascript:void(0);" class="head_profile" menu-action="profile">
                 {% if user.Character %}
-                    <img class="avatar" src="https://render-api-eu.worldofwarcraft.com/static-render/eu/{{ user.Character.thumbnail }}" alt="Настройки">
+                    <img class="avatar" src="https://render-eu.worldofwarcraft.com/character/{{ user.Character.thumbnail }}" alt="Настройки">
                 {% else %}
                     <img class="avatar" src="/pics/login.png" alt="Настройки">
                 {% endif %}

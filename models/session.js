@@ -10,13 +10,16 @@ var fields = [
     'created',
 ]
 
-function grab(params)
+function grab(params, remove)
 {
     let result = null
     for (let i=0; cache[i]; i++) {
         let session = cache[i]
         if (params.id && params.id == session.id) {
             result = session
+            if (remove === true) {
+                cache.splice(i, 1)
+            }
             break
         }
     }
@@ -88,8 +91,27 @@ function get(params, callback)
         callback(grab(params));
     }
 
-    return true;
+    return true
 }
 
-exports.get  = get;
-exports.save = save;
+function remove(params, callback)
+{
+    if (cache.length) {
+        var connection = mysql.createConnection(config.mysql)
+        connection.connect()
+        connection.query('DELETE FROM `session` WHERE `id`=' + params.id, function(err, result) {
+            if (err) throw err
+            grab(params, true)
+            callback()
+        })
+        connection.end()
+    } else {
+        callback()
+    }
+
+    return true
+}
+
+exports.get    = get;
+exports.remove = remove;
+exports.save   = save;

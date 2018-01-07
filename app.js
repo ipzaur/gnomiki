@@ -11,6 +11,7 @@ var menu    = require('./routes/menu')
 
 var auth    = require('./routes/auth')
 var error   = require('./routes/error')
+var logout  = require('./routes/logout')
 var news    = require('./routes/news')
 var profile = require('./routes/profile')
 var stories = require('./routes/stories')
@@ -43,6 +44,7 @@ app.use(isAuthenticated)
 
 app.use('/profile', profile)
 app.use('/stories', stories)
+app.use('/logout', logout)
 app.use('/auth', auth)
 app.use('/', news)
 
