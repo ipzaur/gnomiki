@@ -9,10 +9,11 @@ var bodyParser = require('body-parser');
 var isAuthenticated = require('./routes/helper/isAuthenticated')
 var menu    = require('./routes/menu')
 
-var news    = require('./routes/news')
-var stories = require('./routes/stories')
 var auth    = require('./routes/auth')
 var error   = require('./routes/error')
+var news    = require('./routes/news')
+var profile = require('./routes/profile')
+var stories = require('./routes/stories')
 
 var app = express();
 
@@ -40,6 +41,7 @@ passport.deserializeUser(function(user, done) {
 
 app.use(isAuthenticated)
 
+app.use('/profile', profile)
 app.use('/stories', stories)
 app.use('/auth', auth)
 app.use('/', news)

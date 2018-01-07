@@ -1,0 +1,98 @@
+.characters {
+    font-size: 0;
+    padding: 0 12px 40px;
+    margin: 30px 0;
+}
+.character {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 160px;
+    text-align: center;
+    border: 1px solid #4b3e35;
+    background-color: #2a252180;
+    padding: 30px 0 30px;
+    margin: 0 10px 20px;
+    height: 230px;
+    font-size: 0;
+}
+.character._cur {
+    background-color: #5f4d3f80;
+    border: 1px solid #756052;
+}
+.character._cur::before {
+    content: "Основной";
+    color: #95918A;
+    font-size: 13px;
+    position: absolute;
+    top: 7px;
+    right: 0;
+    left: 0;
+}
+.character_name {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 10px 0 0;
+}
+.character_info {
+    font-size: 14px;
+    margin: 0;
+}
+.character_class-1 {
+    color: #C69B6D;
+}
+.character_class-3 {
+    color: #AAD372;
+}
+.character_class-4 {
+    color: #FFF468;
+}
+.character_class-5 {
+    color: #F0EBE0;
+}
+.character_class-6 {
+    color: #C41E3B;
+}
+.character_class-8 {
+    color: #68CCEF;
+}
+.character_class-9 {
+    color: #9382C9;
+}
+.character_class-10 {
+    color: #00FFBA;
+}
+.character_level {
+    margin-left: 2px;
+    font-weight: 400;
+    color: #b3a647;
+}
+.character_actions {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+}
+[class|="character_action"] {
+    display: inline-block;
+    vertical-align: top;
+    width: 30px;
+    height: 30px;
+    margin: 0 4px;
+    opacity: 0.4;
+    background-repeat: no-repeat;
+}
+[class|="character_action"]:hover {
+    opacity: 1;
+}
+.character_action-switch {
+    background-position: center 3px;
+    background-image: url(/pics/character-switch.png);
+}
+.character._cur .character_action-switch {
+    opacity: 1;
+}
+.character_action-lore {
+    background-position: center 4px;
+    background-image: url(/pics/character-lore.png);
+}

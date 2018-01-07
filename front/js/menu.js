@@ -5,7 +5,7 @@ var $profile = null
 var events = {
     click : (ev) => {
         let $el = $(ev.target)
-        if ($el.closest('[menu-action="profile"]')) {
+        if ($el.closest('[menu-action="profile"]').length) {
             toggle()
         }
     }

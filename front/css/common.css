@@ -66,6 +66,9 @@ p {
     line-height: 25px;
 }
 
+.h {
+    display: none;
+}
 .wrapper {
     position: relative;
     width: 924px;

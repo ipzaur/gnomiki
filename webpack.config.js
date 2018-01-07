@@ -6,7 +6,7 @@ var css = {
     entry: "./front/css/gnomiki.css",
     output: {
         path: __dirname + "/front/",
-        filename: "gnomiki_temp.css"
+        filename: "gnomiki_asset.css"
     },
     module:{
         loaders: [

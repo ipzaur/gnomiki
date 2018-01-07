@@ -1,14 +1,42 @@
 .menuProfile {
+    min-width: 220px;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 0px;
+    top: -1px;
     z-index: 1;
+    background-color: #272323;
+    padding: 25px 0 10px;
+    border: 1px solid #4b3e35;
 }
 .menuProfile_name {
+    margin: 0 80px 0 22px;
+    font-weight: 500;
+    font-size: 20px;
 }
 .menuProfile_actions {
+    position: relative;
+    margin-top: 25px;
+    padding-top: 10px;
+}
+.menuProfile_actions::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: linear-gradient(to right, rgba(41,75,23, 0), rgba(41,75,23, 1), rgba(41,75,23, 0));
+}
+[class|="menuProfile_action"] {
+    display: block;
+    padding: 6px 22px;
+}
+[class|="menuProfile_action"]:hover {
+    background-color: #69B16733;
 }
 .menuProfile_action {
 }
 .menuProfile_action-exit {
+    font-size: 15px;
+    color: #495946;
 }

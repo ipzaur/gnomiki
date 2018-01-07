@@ -15,6 +15,17 @@ var fields = [
     'user'
 ]
 
+var classAlias = {
+    1 : ['Воин', 'Воин'],
+    3 : ['Охотник', 'Охотница'],
+    4 : ['Разбойник', 'Разбойница'],
+    5 : ['Жрец', 'Жрица'],
+    6 : ['Рыцарь смерти', 'Рыцарь смерти'],
+    8 : ['Маг', 'Магичка'],
+    9 : ['Чернокнижник', 'Чернокнижница'],
+    10 : ['Монах', 'Монахиня'],
+}
+
 function grab(params)
 {
     let result = []
@@ -26,6 +37,9 @@ function grab(params)
         if (params.name && params.name != character.name) continue
         if (params.level && params.level != character.level) continue
 
+        if (!character.classname) {
+            character.classname = classAlias[character.class][character.gender]
+        }
         result.push(character)
     }
     return result;
