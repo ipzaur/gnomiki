@@ -9,6 +9,7 @@ var fields = [
     'name',
     'roaster',
     'news',
+    'pages',
 ]
 
 function grab(params)

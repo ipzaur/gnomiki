@@ -41,7 +41,7 @@ function save(user, params, callback)
         if (params[param] === null) {
             save.push('`' + param + '`=NULL')
         } else {
-            save.push('`' + param + '`="' + params[param] + '"')
+            save.push('`' + param + '`="' + mysql.escape(params[param]) + '"')
         }
     }
     let connection = mysql.createConnection(config.mysql);
@@ -67,7 +67,7 @@ function save(user, params, callback)
             if (user[param] === null) {
                 where.push('`' + param + '` IS NULL')
             } else {
-                where.push('`' + param + '`="' + user[param] + '"')
+                where.push('`' + param + '`="' + mysql.escape(user[param]) + '"')
             }
         }
         let query = 'UPDATE `user` SET ' + save.join(', ') + ' WHERE ' + where.join(' AND ')

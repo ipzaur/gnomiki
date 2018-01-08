@@ -7,12 +7,15 @@ var User      = require('../models/user')
 
 var router = express.Router()
 var tpl = {
-    main : fs.readFileSync('./views/profile.twig', 'utf8'),
+    main : twig({
+        allowInlineIncludes: true,
+        data: fs.readFileSync('./views/profile.twig', 'utf8'),
+    }),
 }
 
 function render(characters, current)
 {
-    return twig({data: tpl.main}).render({
+    return tpl.main.render({
         caption    : 'Мои персонажи',
         characters : characters,
         current    : current,
@@ -21,10 +24,10 @@ function render(characters, current)
 
 router.post('/character/:id', (req, res, next) => {
     if (!res.user) {
-        res.sendStatus(403)
+        return res.sendStatus(403)
     }
     if (!req.params.id) {
-        res.sendStatus(403)
+        return res.sendStatus(403)
     }
     Character.get({
         user : res.user.id,

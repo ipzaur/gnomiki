@@ -6,20 +6,23 @@ var page    = require('../models/page')
 
 var router = express.Router();
 
+var tpl = {
+    main  : twig({data : fs.readFileSync('./views/stories.twig', 'utf8')}),
+    story : twig({data : fs.readFileSync('./views/story.twig', 'utf8')}),
+}
+
 var render = {
     main: (pageInfo, list) => {
-        let tpl = fs.readFileSync('./views/stories.twig', 'utf8')
-        return twig({data: tpl}).render({
+        return tpl.main.render({
             caption   : pageInfo.title,
             text      : pageInfo.text,
             stories   : list
         })
     },
     story: (story) => {
-        let tpl = fs.readFileSync('./views/story.twig', 'utf8')
-        return twig({data: tpl}).render({
+        return tpl.story.render({
             caption : story.title,
-            text    : story.source
+            text    : story.text
         })
     },
 }

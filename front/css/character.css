@@ -85,9 +85,10 @@
     right: 0;
 }
 [class|="character_action"] {
+    position: relative;
     display: inline-block;
     vertical-align: top;
-    width: 30px;
+    width: 28px;
     height: 30px;
     margin: 0 4px;
     opacity: 0.4;
@@ -96,17 +97,35 @@
 [class|="character_action"]:hover {
     opacity: 1;
 }
-.character_action-select {
-    background-position: center 3px;
-    background-image: url(/pics/character-select.png);
+[class|="character_action"]::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 24px;
+    background-image: url(/pics/icons.png);
+    background-repeat: no-repeat;
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+}
+.character_action-select::before {
+    width: 24px;
+    background-position: 0 0;
+}
+.character._cur .character_action-select::before {
+    background-position: -24px 0;
+}
+.character_action-lore::before {
+    width: 18px;
+    background-position: -48px 0;
+}
+.character._hasLore .character_action-lore::before {
+    background-position: -66px 0;
 }
 .character._cur .character_action-select,
 .character._lore .character_action-lore {
     opacity: 1;
-}
-.character_action-lore {
-    background-position: center 4px;
-    background-image: url(/pics/character-lore.png);
 }
 .character_lore {
     position: relative;
@@ -119,7 +138,7 @@
     padding: 0 16px;
     overflow-y: auto;
 }
-.character_lore::before {
+.character[character-editable="1"] .character_lore::before {
     content: "";
     position: absolute;
     top: 0;
@@ -134,7 +153,7 @@
     justify-content: center;
     align-items: center;
 }
-.character_lore .editor {
+.character_lore .form {
     margin: 0 -16px;
     flex-grow: 1;
     z-index: 2;

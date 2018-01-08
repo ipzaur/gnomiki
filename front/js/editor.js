@@ -14,45 +14,29 @@ var defaultButtons = [
     'gallery'
 ]
 var buttonsInfo = {
-    'link' : {
-        title  : 'Вставить ссылку',
-        action : 'link',
-        class  : 'link',
-    },
-    'b' : {
-        title  : 'Выделить жирным',
-        action : 'bold',
-        class  : 'bold',
-    },
-    'i' : {
-        title  : 'Выделить курсивом',
-        action : 'italic',
-        class  : 'italic',
-    },
-    'gallery' : {
-        title  : 'Вставить галерею',
-        action : 'gallery',
-        class  : 'gallery',
-    }
+    'link'    : 'Вставить ссылку',
+    'bold'    : 'Выделить жирным',
+    'italic'  : 'Выделить курсивом',
+    'gallery' : 'Вставить галерею',
 }
 
 var tpl = {
-    editor : 
-        '<div class="editor">' +
+    editor : twig({data:
+        '<div class="form">' +
             '{% if buttons|length %}' +
-                '<div class="editor_actions">' +
+                '<div class="form_actions">' +
                     '{% for button in buttons %}' +
-                        '<a href="javascript:void(0);" class="editor_action-{{ button.class }} button" editor-action="{{ button.action }}" title="{{ button.title }}"></a>' +
+                        '<a href="javascript:void(0);" class="form_action-{{ button.label }} button" editor-action="{{ button.label }}" title="{{ button.title }}"></a>' +
                     '{% endfor %}' +
                 '</div>' +
             '{% endif %}' +
-            '<textarea name="content" class="editor_content" editor-elem="content">{{ content }}</textarea>' +
-            '<div class="editor_actions">' +
+            '<textarea name="content" class="form_content" editor-elem="content">{{ content }}</textarea>' +
+            '<div class="form_actions">' +
                 '<a href="javascript:void(0);" class="button" editor-action="save">Сохранить</a>' +
                 ' или ' +
                 '<a href="javascript:void(0);" editor-action="cancel">отменить</a>'+
             '</div>' +
-        '</div>'
+        '</div>'})
 }
 
 var events = {
@@ -109,9 +93,12 @@ function init($block, content, options) {
             i--
             continue
         }
-        buttons[i] = buttonsInfo[button]
+        buttons[i] = {
+            label : button,
+            title : buttonsInfo[button],
+        }
     }
-    let main$ = twig({data: tpl.editor}).render({
+    let main$ = tpl.editor.render({
         buttons : buttons,
         content : content,
     })

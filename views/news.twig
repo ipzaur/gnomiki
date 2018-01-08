@@ -1,12 +1,15 @@
 <h1>{{ caption }}</h1>
-<section>
+<section id="news">
+    {% if canEdit %}
+        <a href="javascript:void(0);" news-action="create">Написать новость</a>
+    {% endif %}
     {% for item in news %}
-        <article class="news" news-elem="main">
+        <article class="news" news-elem="main" news-id="{{ item.id }}">
             <p class="news_date">{{ item.date }}</p>
             <h2 class="news_caption">{{ item.title }}</h2>
             <div class="news_text">{{ item.content }}</div>
             {% if canEdit %}
-                <a href="javascript:void()" news-action="edit">Редактировать новость</a>
+                <a class="news_edit" href="javascript:void(0);" news-action="edit" title="Редактировать новость"></a>
             {% endif %}
         </article>
     {% endfor %}

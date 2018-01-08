@@ -45,7 +45,7 @@ function save(session, params, callback)
         if (params[param] === null) {
             save.push(param + '=NULL')
         } else {
-            save.push(param + '="' + params[param] + '"')
+            save.push(param + '="' + mysql.escape(params[param]) + '"')
         }
     }
     var connection = mysql.createConnection(config.mysql);
@@ -63,7 +63,7 @@ function save(session, params, callback)
             if (session[param] === null) {
                 where.push(param + ' IS NULL')
             } else {
-                where.push(param + '="' + session[param] + '"')
+                where.push(param + '="' + mysql.escape(session[param]) + '"')
             }
         }
         let query = 'UPDATE session SET ' + save.join(', ') + ' WHERE ' + where.join(' AND ')

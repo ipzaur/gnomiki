@@ -9,15 +9,21 @@ var $lore  = null
 var cache = {}
 
 var tpl = {
-    lore :
-        '<div class="character_lore{{ not text ? " _empty" }}" character-action="edit">' +
+    lore : twig({data:
+        '<div class="character_lore{{ not text ? " _empty" }}"{% if editable %} character-action="edit"{% endif %}>' +
             '{% if text %}' +
                 '{{ text }}' +
             '{% else %}'+
                 '{{ empty }}' +
             '{% endif %}' +
-        '</div>',
-    empty : '<p class="character_text">У этого персонажа пока ещё нет истории. <br>Но можно написать её, просто щёлкнув по этому полю ;)</p>',
+        '</div>'}),
+    empty : twig({data:
+        '<p class="character_text">' +
+            'У этого персонажа пока ещё нет истории. ' +
+            '{% if editable %}' +
+                '<br>Но можно написать её, просто щёлкнув по этому полю ;)' +
+            '{% endif%}' +
+        '</p>'}),
 }
 
 var events = {
@@ -57,9 +63,11 @@ function load(id)
 }
 
 var lore = {
-    loading : false,
+    loading  : false,
+    editable : false,
     edit : () => {
         if ($lore === null) return false
+        if (!$lored.attr('character-editable')) return false
 
         $lore.empty().removeClass('_empty')
         editor.init(
@@ -81,6 +89,7 @@ var lore = {
             $lored = null
             $lore.remove()
             $lore = null
+            lore.editable = false
         }
         if (show) {
             lore.loading = true
@@ -88,9 +97,13 @@ var lore = {
                 lore.loading = false
                 $character.addClass('_lore')
                 $lored = $character
-                let lore$ = twig({data: tpl.lore}).render({
-                    text  : character.lore,
-                    empty : tpl.empty,
+                lore.editable = +$lored.attr('character-editable')
+                let lore$ = tpl.lore.render({
+                    text     : character.lore,
+                    editable : lore.editable,
+                    empty    : tpl.empty.render({
+                        editable : lore.editable,
+                    }),
                 })
                 $lore = $(lore$).appendTo($character)
             })
@@ -100,7 +113,11 @@ var lore = {
         let id = +$lored.attr('character-id')
         character = cache[id]
         editor.remove()
-        $lore.toggleClass('_empty', !character.lore).html(character.lore || tpl.empty)
+        lore.update(character.lore)
+    },
+    update : (content) => {
+        $lored.toggleClass('_hasLore', (content != null))
+        $lore.toggleClass('_empty', !content).html(content || tpl.empty.render({editable:lore.editable}))
     },
     save : (content) => {
         let id = +$lored.attr('character-id')
@@ -117,7 +134,7 @@ var lore = {
             success  : function(character) {
                 cache[id] = character
                 editor.remove()
-                $lore.html(character.lore)
+                lore.update(character.lore)
             }
         });
     }

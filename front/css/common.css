@@ -1,5 +1,5 @@
 /* reset */
-p, div, body, h1, h2, h3, li, ol, ul, textarea {
+p, div, body, h1, h2, h3, li, ol, ul, textarea, input {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -66,9 +66,15 @@ p {
     line-height: 25px;
 }
 textarea {
+    resize: vertical;
+    padding: 10px 16px;
+}
+input {
+    padding: 4px 16px;
+}
+textarea, input {
     width: 100%;
     border: 0 none;
-    resize: vertical;
     background-color: #151413;
     font-family: Roboto;
     font-size: 16px;

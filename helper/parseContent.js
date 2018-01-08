@@ -1,8 +1,15 @@
-function parseContent(content)
+var striptags = require('striptags');
+
+function parseContent(content, keep)
 {
-    if (!content) return content
+    if (!keep) {
+        keep = ['a', 'p', 'gallery', 'img', 'b', 'i', 'iframe']
+    }
+    content = striptags(content, keep)
+    if (!content) {
+        return content
+    }
     content = content.replace(/\n/g, '<br>')
-    console.log(content);
     return '<p>' + content + '</p>'
 }
 

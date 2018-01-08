@@ -5,20 +5,20 @@ var config = require('../../config')
 
 var cache = null;
 
-function grab(_params)
+function grab(params)
 {
-    if (_params.url) {
-        for (let i=0; cache[_params.type][i]; i++) {
-            if (cache[_params.type][i].url == _params.url) {
-                return cache[_params.type][i];
+    if (params.url) {
+        for (let i=0; cache[params.type][i]; i++) {
+            if (cache[params.type][i].url == params.url) {
+                return cache[params.type][i];
             }
         }
     } else {
-        return cache[_params.type];
+        return cache[params.type];
     }
 };
 
-function get(_params, callback)
+function get(params, callback)
 {
     if (cache === null) {
         var connection = mysql.createConnection(config.mysql);
@@ -34,11 +34,11 @@ function get(_params, callback)
                 rows[i].date = rows[i].created.split('-').reverse().join('.');
                 cache[type].push(rows[i]);
             }
-            callback(grab(_params));
+            callback(grab(params));
         });
         connection.end();
     } else {
-        callback(grab(_params));
+        callback(grab(params));
     }
 
     return true;

@@ -11,13 +11,36 @@
     line-height: 60px;
     padding-left: 8px;
 }
-.foot_link {
+[class|="foot_link"] {
     float: right;
     font-size: 0;
     height: 40px;
     margin: 9px 8px 0 12px;
     opacity: 0.4;
 }
-.foot_link:hover {
+[class|="foot_link"]:hover {
     opacity: 1;
+}
+[class|="foot_link"]::before {
+    content: "";
+    display: inline-block;
+    height: 18px;
+    background-image: url(/pics/icons.png);
+    background-repeat: no-repeat;
+}
+.foot_link-discord::before {
+    width: 25px;
+    background-position: -78px -24px;
+}
+.foot_link-youtube::before {
+    width: 26px;
+    background-position: 0 -24px;
+}
+.foot_link-wow::before {
+    width: 20px;
+    background-position: -58px -24px;
+}
+.foot_link-vk::before {
+    width: 32px;
+    background-position: -26px -24px;
 }

@@ -15,20 +15,22 @@ var fields = [
     'user',
     'lore',
     'lore_src',
+    'inguild',
 ]
 var skipGetFields = [
     'lore',
     'lore_src',
+    'inguild',
 ]
 
 var classAlias = {
-    1 : ['Воин', 'Воин'],
-    3 : ['Охотник', 'Охотница'],
-    4 : ['Разбойник', 'Разбойница'],
-    5 : ['Жрец', 'Жрица'],
-    6 : ['Рыцарь смерти', 'Рыцарь смерти'],
-    8 : ['Маг', 'Магичка'],
-    9 : ['Чернокнижник', 'Чернокнижница'],
+    1  : ['Воин', 'Воин'],
+    3  : ['Охотник', 'Охотница'],
+    4  : ['Разбойник', 'Разбойница'],
+    5  : ['Жрец', 'Жрица'],
+    6  : ['Рыцарь смерти', 'Рыцарь смерти'],
+    8  : ['Маг', 'Магичка'],
+    9  : ['Чернокнижник', 'Чернокнижница'],
     10 : ['Монах', 'Монахиня'],
 }
 
@@ -64,10 +66,13 @@ function save(character, params, callback)
     let save = []
     for (let param in params) if (params.hasOwnProperty(param)) {
         if (fields.indexOf(param) < 0) continue
+        if ( (param == 'lore' || param == 'lore_src') && !params[param]) {
+            params[param] = null
+        }
         if (params[param] === null) {
             save.push('`' + param + '`=NULL')
         } else {
-            save.push('`' + param + '`="' + params[param] + '"')
+            save.push('`' + param + '`=' + mysql.escape(params[param]))
         }
     }
     let connection = mysql.createConnection(config.mysql);
@@ -93,7 +98,7 @@ function save(character, params, callback)
             if (character[param] === null) {
                 where.push('`' + param + '` IS NULL')
             } else {
-                where.push('`' + param + '`="' + character[param] + '"')
+                where.push('`' + param + '`=' + mysql.escape(character[param]))
             }
         }
         let query = 'UPDATE `character` SET ' + save.join(', ') + ' WHERE ' + where.join(' AND ')

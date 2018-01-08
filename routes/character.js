@@ -1,5 +1,4 @@
 var express = require('express')
-var config = require('../../config')
 
 var Character = require('../models/character')
 
@@ -9,11 +8,8 @@ var router = express.Router()
 
 router.post('/:id', (req, res, next) => {
     if (!res.user) {
-        res.sendStatus(403)
+        return res.sendStatus(403)
     }
-    console.log(req.params)
-    console.log(req.body);
-    console.log(res.user);
     Character.get({id:req.params.id}, (characters) => {
         if (!characters.length) {
             res.sendStatus(404)
@@ -24,7 +20,7 @@ router.post('/:id', (req, res, next) => {
             } else {
                 Character.save(character, {
                     lore_src : req.body.lore_src,
-                    lore     : parseContent(req.body.lore_src),
+                    lore     : parseContent(req.body.lore_src, ['p']),
                 }, (character) => {
                     res.json(character)
                 })
