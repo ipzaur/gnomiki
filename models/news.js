@@ -33,13 +33,17 @@ function extend(news)
     return news
 }
 
-function grab(params)
+function grab(params, remove)
 {
     if (params.id) {
         let result = null
         for (let i=0; cache[i]; i++) {
             let news = cache[i]
             if (news.id == params.id) {
+                if (remove === true) {
+                    cache.splice(i, 1)
+                    break
+                }
                 cache[i] = extend(news)
                 result = news
                 break
@@ -131,6 +135,25 @@ function save(news, params, callback)
     connection.end();
 }
 
+function remove(params, callback)
+{
+    if (cache.length) {
+        var connection = mysql.createConnection(config.mysql)
+        connection.connect()
+        connection.query('DELETE FROM `news` WHERE `id`=' + params.id, function(err, result) {
+            if (err) throw err
+            grab(params, true)
+            callback()
+        })
+        connection.end()
+    } else {
+        callback()
+    }
+
+    return true
+}
+
 exports.get = get;
 exports.save = save;
+exports.remove = remove;
 exports.maxPage = maxPage;

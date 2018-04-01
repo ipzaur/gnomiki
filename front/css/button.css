@@ -1,0 +1,16 @@
+[class|="button"], .button {
+    color: #fff;
+    padding: 2px 14px 3px;
+    background-color: #625F5D;
+    font-weight: 400;
+    font-size: 15px;
+    opacity: 0.4;
+    border: 1px solid;
+}
+[class|="button"]:hover, .button:hover {
+    opacity: 1;
+}
+.button-red {
+    background-color: #532626;
+    color: #ef6767;
+}

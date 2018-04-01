@@ -19,6 +19,7 @@ var newsEdit  = require('./routes/newsEdit')
 var profile   = require('./routes/profile')
 var pve       = require('./routes/pve')
 var stories   = require('./routes/stories')
+var upload    = require('./routes/upload')
 
 var app = express();
 
@@ -30,7 +31,7 @@ function haltOnTimedout(req, res, next) {
     if (!req.timedout) next()
 }
 
-app.use(timeout('30s'));
+app.use(timeout('15s'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(haltOnTimedout);
 // uncomment after placing your favicon in /public
@@ -52,6 +53,7 @@ passport.deserializeUser(function(user, done) {
 
 app.use(isAuthenticated)
 
+app.use('/upload', upload)
 app.use('/about', about)
 app.use('/character', character)
 app.use('/profile', profile)

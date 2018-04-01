@@ -1,0 +1,21 @@
+.gallery {
+    font-size: 0;
+    margin: 20px -7px 10px;
+    display: flex;
+    -webkit-justify-content: center;
+            justify-content: center;
+}
+.gallery_thumb {
+    margin: 0 7px;
+    text-align: center;
+}
+.gallery_img {
+    max-width: 100%;
+}
+.gallery_title {
+    color: #716c6c;
+    font-size: 13px;
+    display: block;
+    margin-top: 8px;
+    text-align: center;
+}

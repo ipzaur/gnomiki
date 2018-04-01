@@ -37,8 +37,30 @@ var events = {
                 case 'lore'   : return lore.show($character)
                 case 'edit'   : return lore.edit($character)
             }
+        } else if ($el.is('[characters-action="roster"]')) {
+            updateRoster($el)
         }
     }
+}
+
+function updateRoster($button)
+{
+    if ($button.hasClass('_disabled')) {
+        return false
+    }
+    $button.addClass('_disabled')
+    $.ajax({
+        type     : 'POST',
+        url      : '/character/roster',
+        dataType : 'json',
+        xhrFields: {
+            withCredentials: true
+        },
+        success  : function(json) {
+            $button.removeClass('_disabled')
+            window.location.reload()
+        }
+    });
 }
 
 function load(id)

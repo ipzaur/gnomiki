@@ -1,9 +1,11 @@
 @import 'common.css';
+@import 'button.css';
 
 @import 'avatar.css';
 @import 'character.css';
 @import 'foot.css';
 @import 'form.css';
+@import 'gallery.css';
 @import 'head.css';
 @import 'menu.css';
 @import 'menuProfile.css';

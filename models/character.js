@@ -130,7 +130,7 @@ function get(params, callback)
     if (!cache.length) {
         var connection = mysql.createConnection(config.mysql);
         connection.connect();
-        connection.query('SELECT * FROM `character`', function(err, rows, fields) {
+        connection.query('SELECT * FROM `character` ORDER BY name', function(err, rows, fields) {
             if (err) throw err;
             if (!cache.length) {
                 cache = JSON.parse(JSON.stringify(rows))
@@ -162,12 +162,12 @@ function update(characters, callback)
             name : characters[i].name
         }
         get(params, (character) => {
-            character = character[0]
-            if (!character) {
+            if (!character.length) {
                 save(null, characters[i], (character) => {
                     saved(character)
                 })
             } else {
+                character = character[0]
                 save(character, characters[i], (character) => {
                     saved(character)
                 })

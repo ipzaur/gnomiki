@@ -25,6 +25,9 @@
 .news_text {
     margin-top: 24px;
 }
+.news_text p:first-letter {
+    margin-left: 14px;
+}
 .news_edit {
     position: absolute;
     top: 8px;

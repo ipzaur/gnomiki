@@ -7,7 +7,7 @@ var cache = [];
 var fields = [
     'id',
     'name',
-    'roaster',
+    'roster',
     'news',
     'pages',
 ]

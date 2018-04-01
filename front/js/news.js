@@ -1,28 +1,43 @@
 var $ = require('jquery')
-var twig   = require('twig').twig
+var twig     = require('twig').twig
+var uploader = require('./uploader')
 
 var $main = null
 
 var cache = []
 
 var editor = {
-    $main : null,
-    $news : null,
+    $main    : null,
+    $news    : null,
     $content : null,
-    $title : null,
+    $title   : null,
+    $media   : null,
 
     data : null,
 
-    tpl : twig({data :
-        '<div class="news_editor form">'+
-            '<input type="text" class="form_field" name="title" value="{{ title }}" placeholder="Заголовок новости">' +
-            '<textarea class="form_content" name="content" placeholder="Текст новости">{{ content_src }}</textarea>' +
-            '<div class="form_actions">'+
-                '<a href="javascript:void(0);" class="button" editor-action="save">Сохранить</a>' +
-                ' или ' +
-                '<a href="javascript:void(0);" editor-action="cancel">отменить</a>'+
-            '</div>' +
-        '</div>'}),
+    tpl : {
+        main : twig({data :
+            '<form class="news_editor form" method="POST" action="{{ action }}" enctype="multipart/form-data">' +
+                '<input type="text" class="form_field" name="title" value="{{ title }}" placeholder="Заголовок новости">' +
+                '<textarea class="form_content" name="content" placeholder="Текст новости">{{ content_src }}</textarea>' +
+                '<div class="form_actions">'+
+                    '<a href="javascript:void(0);" class="button" editor-action="save">Сохранить</a>' +
+                    ' или ' +
+                    '<a href="javascript:void(0);" editor-action="cancel">отменить</a>' +
+                    '{% if id %}' +
+                        '<a href="javascript:void(0);" class="button-red form_remove" editor-action="remove">удалить</a>' +
+                    '{% endif %}' +
+                '</div>' +
+                '<div class="form_actions">'+
+                    '<span class="form_upload">' +
+                        'Загрузить фотографии' +
+                        '<input class="form_uploader" name="upload[]" media-action="upload" type="file" multiple>' +
+                    '</span>' +
+                    '<div class="form_medias" editor-elem="media"></div>' +
+                '</div>' +
+            '</form>'}),
+        media : twig({data : '<img class="form_media" src="{{ thumb }}" data-orig="{{ orig }}" alt="" height="100" editor-action="media">'})
+    },
 
     events : {
         click : (ev) => {
@@ -32,18 +47,68 @@ var editor = {
                 switch (action) {
                     case 'cancel' : return editor.close()
                     case 'save'   : return editor.save()
+                    case 'remove' : return editor.remove()
+                    case 'media'  : return editor.insertMedia($el.attr('src'), $el.attr('data-orig'))
                 }
             }
+        },
+        change : (ev) => {
+            var el = $(ev.target)
+            if (el.is('[media-action="upload"]')) {
+                editor.upload(ev)
+            }
+        },
+    },
+
+    insertMedia : function(thumb, orig) {
+        if (!thumb) {
+            return false;
         }
+        let title = prompt('Комментарий к изображению (не обязательно)');
+        if (title === null) {
+            return false
+        }
+        let pos = {
+            start : editor.$content[0].selectionStart || 0,
+            end   : editor.$content[0].selectionEnd || 0,
+        }
+
+        let mediaText = "\n" + '<img src="' + thumb + '" data-orig="' + orig + '"';
+        if (title != ''){
+            mediaText += ' title="' + title + '"';
+        }
+        mediaText += ">\n";
+
+        let selectedLength = pos.end - pos.start;
+        let content = editor.$content.val().split('');
+        content.splice(pos.start, selectedLength, mediaText);
+        content = content.join('');
+        editor.$content.val(content);
+    },
+
+    upload : (ev) => {
+        uploader.do(ev, {
+            url : '/upload/',
+            otherData : {
+                content_type : 'news',
+                content_id   : editor.data ? editor.data.id : null,
+            },
+            done : function(files) {
+                for (let i=0; files[i]; i++) {
+                    $(editor.tpl.media.render(files[i])).appendTo(editor.$media)
+                }
+            }
+        })
     },
 
     init : ($news, news) => {
         editor.data = news
         editor.$news = $news
         if (editor.$main === null) {
-            editor.$main = $(editor.tpl.render(editor.data)).on(editor.events)
-            editor.$title = editor.$main.find('[name="title"]')
+            editor.$main    = $(editor.tpl.main.render(editor.data)).on(editor.events)
+            editor.$title   = editor.$main.find('[name="title"]')
             editor.$content = editor.$main.find('[name="content"]')
+            editor.$media   = editor.$main.find('[editor-elem="media"]')
         } else {
             editor.$title.val(news.title)
             editor.$content.val(news.content_src)
@@ -70,11 +135,32 @@ var editor = {
         });
     },
 
+    remove : () => {
+        if (!editor.data.id) {
+            return false
+        }
+        $.ajax({
+            type     : 'DELETE',
+            url      : '/news/' + editor.data.id,
+            dataType : 'json',
+            xhrFields: {
+                withCredentials: true
+            },
+            statusCode : {
+                200 : function(xhr) {
+                    window.location.reload()
+                }
+            }
+        });
+    },
+
     close : () => {
+        editor.$content = null
+        editor.$title   = null
+        editor.$news    = null
+        editor.data = null
         editor.$main.remove()
         editor.$main = null
-        editor.$news = null
-        editor.data = null
     },
 }
 

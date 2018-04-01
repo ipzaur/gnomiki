@@ -32,6 +32,19 @@ router.post('/:id', (req, res, next) => {
     }
 })
 
+router.delete('/:id', (req, res, next) => {
+    if (!res.user || !res.user.Role.news) {
+        return res.sendStatus(403)
+    }
+    if (req.params.id == 0) {
+        return res.sendStatus(404)
+    }
+
+    News.remove({id:req.params.id}, () => {
+        res.sendStatus(200)
+    })
+})
+
 router.get('/:id', (req, res, next) => {
     if (!res.user || !res.user.Role.news) {
         return res.sendStatus(403)

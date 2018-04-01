@@ -2,8 +2,13 @@
 <section id="about">
     {{ text }}
     <div id="characters" class="characters">
-        {% for character in roster %}
-            {% include './views/character.twig' with {character : character} %}
+        {% if user and user.Role.roster %}
+            <a href="javascript:void(0);" class="button characters_update" characters-action="roster">Обновить</a>
+        {% endif %}
+        {% for group in roster %}
+            {% for character in group %}
+                {% include './views/character.twig' with {character : character} %}
+            {% endfor %}
         {% endfor %}
     </div>
 </section>
